@@ -1,3 +1,0 @@
-/home/pi/Projects/lcd/build/CMakeFiles/lcd.dir
-/home/pi/Projects/lcd/build/CMakeFiles/edit_cache.dir
-/home/pi/Projects/lcd/build/CMakeFiles/rebuild_cache.dir
