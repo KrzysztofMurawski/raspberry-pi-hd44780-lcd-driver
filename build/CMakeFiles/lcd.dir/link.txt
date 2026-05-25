@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/lcd.dir/src/main.c.o CMakeFiles/lcd.dir/src/gpio.c.o -o lcd 
