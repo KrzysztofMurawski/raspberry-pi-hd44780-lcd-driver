@@ -2,23 +2,18 @@
 
 
 int main(){
-    int *gpio = get_gpiomem_addr();
+    set_gpiomem_base_addr();
 
-    unsigned int val = gpio[GPFSEL0 / 4];
-
-    val &= ~(0b111 << (3 * 6));
-    val |=  (0b001 << (3 * 6));
-
-    gpio[GPFSEL0 / 4] = val;
-
-    gpio[GPSET0 / 4] = (1 << 6);
-
-    sleep(5);
-
-    gpio[GPCLR0 / 4] = (1 << 6);
-
-    munmap((void*)gpio, 4096);
-    
-
+    int pins[] = {5, 6, 2, 3};
+    int i = 0;
+    while (1){
+        set_pin(pins[i]);
+        usleep(10000);
+        clr_pin(pins[i]);
+        i++;
+        if(i==4){
+            i = 0;
+        }
+    }
     return 0;
 }
