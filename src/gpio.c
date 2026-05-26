@@ -23,7 +23,7 @@ void find_gpiomem_base_addr(){
     close(fd);
 }
 
-void sel_pin_as_output(const uint16_t pin_nr){
+void sel_pin(const uint8_t pin_nr, const unsigned int operation_def){
 
     if (pin_nr > 57) return;
 
@@ -39,15 +39,16 @@ void sel_pin_as_output(const uint16_t pin_nr){
 
 
 
-void set_pin(const uint16_t pin_nr)
+void set_pin(const uint8_t pin_nr)
 {
     if (pin_nr > 57)
         return;
 
-    sel_pin_as_output(pin_nr);
+    sel_pin(pin_nr, GPIO_OUTPUT);
 
     const uint32_t set_reg =
         GPSET0 + ((pin_nr / 32) * 4);
+
 
     const uint32_t bit =
         pin_nr % 32;
@@ -56,17 +57,17 @@ void set_pin(const uint16_t pin_nr)
 }
 
 
-void clr_pin(const uint16_t pin_nr)
+void clr_pin(const uint8_t pin_nr)
 {
     if (pin_nr > 57)
         return;
 
-    sel_pin_as_output(pin_nr);
+    sel_pin(pin_nr, GPIO_OUTPUT);
 
     const uint32_t clr_reg =
         GPCLR0 + ((pin_nr / 32) * 4);
 
-    const uint32_t bit =
+    const uint8_t bit =
         pin_nr % 32;
 
     gpio_base[clr_reg / 4] = (1u << bit);
@@ -77,3 +78,4 @@ void unmap_gpiomem(){
         perror("Unmapping /dev/gpiomem");
     }
 }
+

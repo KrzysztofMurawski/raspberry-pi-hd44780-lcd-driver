@@ -5,6 +5,7 @@ project(lcd C)
 set(SOURCE_FILES 
     src/main.c
     src/gpio.c
+    src/signals.c
 )
 
 set(INCLUDE_DIRECTORIES
