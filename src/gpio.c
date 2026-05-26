@@ -24,26 +24,53 @@ void find_gpiomem_base_addr(){
 }
 
 void sel_pin_as_output(const uint16_t pin_nr){
-    unsigned int val = gpio_base[GPFSEL0 / 4];
 
-    val &= ~(0b111 << (3 * pin_nr));
-    val |=  (0b001 << (3 * pin_nr));
+    if (pin_nr > 57) return;
 
-    gpio_base[GPFSEL0 / 4] = val;
+    const unsigned int sel_reg = GPFSEL0 + (pin_nr / 10) * 4;
+
+    unsigned int val = gpio_base[sel_reg / 4];
+
+    val &= ~(0b111 << (3 * (pin_nr % 10)));
+    val |=  (0b001 << (3 * (pin_nr % 10)));
+
+    gpio_base[sel_reg / 4] = val;
 }
 
-void set_pin(const uint16_t pin_nr){
+
+
+void set_pin(const uint16_t pin_nr)
+{
+    if (pin_nr > 57)
+        return;
+
     sel_pin_as_output(pin_nr);
 
-    gpio_base[GPSET0 / 4] = (1 << pin_nr);
+    const uint32_t set_reg =
+        GPSET0 + ((pin_nr / 32) * 4);
+
+    const uint32_t bit =
+        pin_nr % 32;
+
+    gpio_base[set_reg / 4] = (1u << bit);
 }
 
 
-void clr_pin(const uint16_t pin_nr){
+void clr_pin(const uint16_t pin_nr)
+{
+    if (pin_nr > 57)
+        return;
+
     sel_pin_as_output(pin_nr);
-    gpio_base[GPCLR0 / 4] = (1 << pin_nr);
-}
 
+    const uint32_t clr_reg =
+        GPCLR0 + ((pin_nr / 32) * 4);
+
+    const uint32_t bit =
+        pin_nr % 32;
+
+    gpio_base[clr_reg / 4] = (1u << bit);
+}
 
 void unmap_gpiomem(){
     if (munmap((void*)gpio_base, 4096) == -1){
