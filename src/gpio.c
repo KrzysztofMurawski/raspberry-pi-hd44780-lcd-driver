@@ -1,7 +1,7 @@
 #include "gpio.h"
 
 
-void set_gpiomem_base_addr(){
+void find_gpiomem_base_addr(){
     int fd = open("/dev/gpiomem", O_RDWR | O_SYNC);
     if (fd == -1){
         perror("Open /dev/gpiomem");
@@ -23,25 +23,24 @@ void set_gpiomem_base_addr(){
     close(fd);
 }
 
-
-void set_pin(const uint16_t pin_nr){
+void sel_pin_as_output(const uint16_t pin_nr){
     unsigned int val = gpio_base[GPFSEL0 / 4];
 
     val &= ~(0b111 << (3 * pin_nr));
     val |=  (0b001 << (3 * pin_nr));
 
     gpio_base[GPFSEL0 / 4] = val;
+}
+
+void set_pin(const uint16_t pin_nr){
+    sel_pin_as_output(pin_nr);
+
     gpio_base[GPSET0 / 4] = (1 << pin_nr);
 }
 
 
 void clr_pin(const uint16_t pin_nr){
-    unsigned int val = gpio_base[GPFSEL0 / 4];
-
-    val &= ~(0b111 << (3 * pin_nr));
-    val |=  (0b001 << (3 * pin_nr));
-    
-    gpio_base[GPFSEL0 / 4] = val;
+    sel_pin_as_output(pin_nr);
     gpio_base[GPCLR0 / 4] = (1 << pin_nr);
 }
 

@@ -2,7 +2,7 @@
 
 
 int main(){
-    set_gpiomem_base_addr();
+    find_gpiomem_base_addr();
 
     int pins[] = {5, 6, 2, 3};
     int i = 0;
