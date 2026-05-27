@@ -1,22 +1,23 @@
-#include "signals.h"
+#include "lcd.h"
 
 
 int main(){
-    find_gpiomem_base_addr();
-    // clear_all_pins();
 
-    init_seq1();
+    lcd_init();
     // init_seq2();
     // usleep(500000);
     send_cmd(0x80);   // DDRAM address = 0 (first position)
     usleep(1000);
-
-    send_data('A');
-    send_data('B');
-    send_data('c');
-    send_data('4');
-    send_data('[');
-    unmap_gpiomem();
+    send_data('N');
+    send_data('o');
+    send_data(' ');
+    send_data('H');
+    send_data('e');
+    send_data('l');
+    send_data('o');
+    send_data('o');
+    send_data('u');
+    lcd_close();
 
     return 0;
 }
