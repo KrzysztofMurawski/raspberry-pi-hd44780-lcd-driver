@@ -34,10 +34,12 @@ void find_gpiomem_base_addr();
 //                 0b010 - 0b111 for alternate functions
 void sel_pin(const uint8_t pin_nr, const unsigned int operation_def);
 
-void set_pin(const uint8_t pin_nr);
-void clr_pin(const uint8_t pin_nr);
+void pin_high(const uint8_t pin_nr);
+void pin_low(const uint8_t pin_nr);
 void read_pin(const uint8_t pin_nr); // TODO
 
+void clr_pins(const uint32_t pins);
+void set_pins(const uint32_t pins);
 
 void unmap_gpiomem();
 

@@ -39,7 +39,7 @@ void sel_pin(const uint8_t pin_nr, const unsigned int operation_def){
 
 
 
-void set_pin(const uint8_t pin_nr)
+void pin_high(const uint8_t pin_nr)
 {
     if (pin_nr > 57)
         return;
@@ -57,7 +57,7 @@ void set_pin(const uint8_t pin_nr)
 }
 
 
-void clr_pin(const uint8_t pin_nr)
+void pin_low(const uint8_t pin_nr)
 {
     if (pin_nr > 57)
         return;
@@ -72,6 +72,17 @@ void clr_pin(const uint8_t pin_nr)
 
     gpio_base[clr_reg / 4] = (1u << bit);
 }
+
+
+void clr_pins(const uint32_t pins){
+    gpio_base[GPCLR0 / 4] = pins;
+}
+
+void set_pins(const uint32_t pins){
+    gpio_base[GPSET0 / 4] = pins;
+}
+
+
 
 void unmap_gpiomem(){
     if (munmap((void*)gpio_base, 4096) == -1){

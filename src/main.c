@@ -3,28 +3,16 @@
 
 int main(){
     find_gpiomem_base_addr();
+    // clear_all_pins();
 
-    // int pins[] = {22, 27, 17, 16, 5, 6, 13};
-    // int i = 0;
-    // while (1){
-        
-    //     set_pin(pins[i]);
-    //     usleep(600000);
-    //     clr_pin(pins[i]);
-    //     i++;
-    //     if(i==7){
-    //         i = 0;
-    //     }
-    // }
+    init_seq1();
+    // init_seq2();
+    usleep(500000);
+    send_cmd(0x80);   // DDRAM address = 0 (first position)
+    usleep(1000);
 
-    struct signal sig1;
-    sig1.rs = LOW;
-    sig1.rw = HIGH;
-    sig1.db = 0b1110;
-
-    send_signal(sig1);
-
-    printf("%d\n", sig1.db);
+    send_data(0b00101000);
+    unmap_gpiomem();
 
     return 0;
 }
