@@ -7,6 +7,7 @@ set(SOURCE_FILES
     src/gpio.c
     src/signals.c
     src/lcd.c
+    src/utils.c
 )
 
 set(INCLUDE_DIRECTORIES

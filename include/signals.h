@@ -1,8 +1,10 @@
 #pragma once
 #include "gpio.h"
+#include "utils.h"
 
 #include <stdbool.h>
 #include <stdint.h>
+
 
 // HD44780 supports 4-bit and 8-bit parrallel communication
 // 8-bit data bus unsupported !!!
@@ -40,5 +42,5 @@ void clear_all_pins();
 static void write_data_to_gpio(uint8_t data_4bit);
 static void write_cmd(uint8_t cmd);
 static void pulse_e(uint32_t time);
-static void set_db_gpio_pins(uint8_t data);
+void set_db_gpio_pins(uint8_t data);
 

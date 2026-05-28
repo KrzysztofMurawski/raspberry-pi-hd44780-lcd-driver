@@ -42,14 +42,16 @@ void write_cmd_to_gpio(uint8_t cmd_4bit){
 }
 
 void set_db_gpio_pins(uint8_t data){
+    // TODO fix writing multiple pins
     int to_write = 0b0;
     for (int i =4; i < 8 ; i++){
         if(data % 2){
             to_write |= (1u << data_bus_gpios[i]);
+            pin_high(data_bus_gpios[i]);
         }
         data /= 2;
     }
-    set_pins(to_write);
+
 }
 
 
