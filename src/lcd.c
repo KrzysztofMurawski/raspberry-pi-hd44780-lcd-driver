@@ -1,6 +1,6 @@
 #include "lcd.h"
 
-void lcd_init(){
+private void lcd_init(){
     find_gpiomem_base_addr();
 
     clear_all_pins();
@@ -28,17 +28,32 @@ void lcd_init(){
 
 
 
-void clear_display(){
+public void clear_display(){
     send_cmd(1);
 }
 
-void lcd_close(){
+public void lcd_close(){
     clear_all_pins();
     usleep(2000);
     unmap_gpiomem();
 }
 
-void cursor_cnf(uint8_t cnf){
+public void cursor_cnf(uint8_t cnf){
         send_cmd(0x0C + cnf);   // display ON 4; cursor ON 2; Cursor blink 1;
 
+}
+
+public void put_char(char chr){
+    send_data(chr);
+}
+
+public void put_text(char *text){
+    for (int i = 0; i < strlen(text) && i < 32; ++i){
+        if (i==16){
+            for (int j = 0; j < 40 - 16; j++){
+                send_data(' ');
+            }
+        }
+        send_data(text[i]);
+    }
 }
