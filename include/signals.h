@@ -26,7 +26,7 @@
 // microseconds
 #define PULSE_TIME 10
 #define WAIT_BETWEEN_NIBBLES_TIME 5000
-#define WAIT_AFTER_SENDING 10000
+#define WAIT_AFTER_SENDING 5000
 
 
 // Public API

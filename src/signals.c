@@ -35,7 +35,6 @@ void write_data_to_gpio(uint8_t data_4bit){
 void write_cmd_to_gpio(uint8_t cmd_4bit){
     pin_low(RS_GPIO);
     pin_low(RW_GPIO);
-    printf("%d\n", cmd_4bit);
     set_db_gpio_pins(cmd_4bit);
     usleep(5000);
     pulse_e(PULSE_TIME);
@@ -47,7 +46,6 @@ void set_db_gpio_pins(uint8_t data){
     for (int i =4; i < 8 ; i++){
         if(data % 2){
             to_write |= (1u << data_bus_gpios[i]);
-            printf("%d %d %d\n", data, i, data_bus_gpios[i]);
         }
         data /= 2;
     }

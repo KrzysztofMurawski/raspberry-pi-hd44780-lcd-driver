@@ -28,5 +28,7 @@ void lcd_init(){
 
 void lcd_close(){
     clear_all_pins();
+    usleep(2000);
+    pin_high(DB4_GPIO);
     unmap_gpiomem();
 }
